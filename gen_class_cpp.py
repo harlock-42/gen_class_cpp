@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+
 import sys
 import os
 
 def do_cpp_file( class_name ):
 
+	if os.path.isfile(class_name + ".hpp") == True:
+		return
 	file = open(class_name + ".cpp", "w")
 
 	head_ft = class_name + "::"
@@ -23,6 +27,7 @@ def do_cpp_file( class_name ):
 	'',\
 	head_ft + class_name + "( void )",\
 	"{",\
+	"\t//std::cout << " + class_name + ": Constructor by default called << std::endl;",\
 	"\treturn ;",\
 	"}",\
 	'',\
@@ -32,6 +37,7 @@ def do_cpp_file( class_name ):
 	'',\
 	head_ft + class_name + "( " + class_name + " const &rhs )",\
 	"{",\
+	"\t//std::cout << " + class_name + ": Constructor by copie called << std::endl;",\
 	"\t*this = rhs;",\
 	"\treturn ;",\
 	"}",\
@@ -43,6 +49,8 @@ def do_cpp_file( class_name ):
 	class_name + "\t&" + head_ft + "operator=( " + class_name + " const & rhs )",\
 	"{",\
 	'',\
+	"\t//std::cout << " + class_name + ": Assignment's overload called << std::endl;",\
+	"\t(void)rhs;",\
 	"\treturn ( *this );",\
 	"}",\
 	'',\
@@ -52,6 +60,7 @@ def do_cpp_file( class_name ):
 	'',\
 	head_ft + "~" + class_name + "( void )",\
 	"{",\
+	"\t//std::cout << " + class_name + ": Destructor called << std::endl;",\
 	"\treturn ;",\
 	"}",\
 	'',\
