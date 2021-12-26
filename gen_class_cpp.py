@@ -1,0 +1,140 @@
+import sys
+import os
+
+def do_cpp_file( class_name ):
+
+	file = open(class_name + ".cpp", "w")
+
+	head_ft = class_name + "::"
+	class_name = sys.argv[1]
+
+	lines = \
+	["#include \"" + class_name + ".hpp\"",\
+	'',\
+	"/*",\
+	"** ----------------------",\
+	"** --- CANONICAL FORM ---",\
+	"** ----------------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** Constructor by default",\
+	"*/",\
+	'',\
+	head_ft + class_name + "( void )",\
+	"{",\
+	"\treturn ;",\
+	"}",\
+	'',\
+	"/*",\
+	"** Constructor by copie",\
+	"*/",\
+	'',\
+	head_ft + class_name + "( " + class_name + " const &rhs )",\
+	"{",\
+	"\t*this = rhs;",\
+	"\treturn ;",\
+	"}",\
+	'',\
+	"/*",\
+	"** Assignment Overload",\
+	"*/",\
+	'',\
+	class_name + "\t&" + head_ft + "operator=( " + class_name + " const & rhs )",\
+	"{",\
+	'',\
+	"\treturn ( *this );",\
+	"}",\
+	'',\
+	"/*",\
+	"** Destructor",\
+	"*/",
+	'',\
+	head_ft + "~" + class_name + "( void )",\
+	"{",\
+	"\treturn ;",\
+	"}",\
+	'',\
+	"/*",\
+	"** ----------------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** --------------",\
+	"** --- GETTER ---",\
+	"** --------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** --------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** --------------",\
+	"** --- SETTER ---",\
+	"** --------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** --------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** ----------------------",\
+	"** --- ACTION METHODS ---",\
+	"** ----------------------",\
+	"*/",\
+	'',\
+	"/*",\
+	"** ----------------------",\
+	"*/",\
+	]
+
+	file.write('\n'.join(lines))
+
+	file.close()
+
+
+def do_hpp_file( file_name ):
+
+	if os.path.isfile(file_name) == True:
+		return
+	file = open(file_name, "w")
+
+	class_name = sys.argv[1]
+	head_name = sys.argv[1]
+	head_name = head_name.upper()
+	head_name += "_H"
+
+	lines = ["#ifndef " + head_name, "# define " + head_name, '',\
+	"# include <iostream>", "# include <string>", '', '']
+
+	file.write('\n'.join(lines))
+
+	lines = ["class " + sys.argv[1], "{", "\tprotected:", '', "\tpublic:",\
+	'', "\t\t// Canonical Form", '', "\t\t" + class_name + "( void );",\
+	"\t\t" + class_name + "( " + class_name + " const &rhs );",\
+	"\t\t" + class_name + " &operator=( " + class_name + " const &rhs );",\
+	"\t\t~" + class_name + "( void );" ,\
+	'', "\t\t// Getter", '', "\t\t// Setter", '', "\t\t// Action Methods", '', "};"]
+
+	file.write('\n'.join(lines))
+
+
+	lines = ['', '', "#endif"]
+
+	file.write('\n'.join(lines))
+	file.close
+
+
+
+
+
+
+if len(sys.argv) != 2:
+	sys.exit(1)
+
+
+do_cpp_file(sys.argv[1])
+
+do_hpp_file(sys.argv[1] + ".hpp")
