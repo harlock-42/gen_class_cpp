@@ -1,0 +1,4 @@
+cp ./gen_class_cpp ~/.gen_class_cpp
+echo "alias class=\"~/.gen_class_cpp\"" >> ~/.bashrc
+echo "alias class=\"~/.gen_class_cpp\"" >> ~/.zshrc
+exit
